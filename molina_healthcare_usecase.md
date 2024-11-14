@@ -33,9 +33,9 @@ values.yaml | <Cloned_Repo_Dir>/flink-healthcare-molina | {azStorageAccountSecre
 
 # Launch Flink Cluster
 You have a Helm chart that needs to be installedthat takes care of deploying the following resousrces
-    * Config Maps
-    * Flink Cluster Session mode deployment
-    * Ingress
+* Config Maps
+* Flink Cluster Session mode deployment
+* Ingress
 
 ```bash
 cd <Cloned_Repo_Dir>
