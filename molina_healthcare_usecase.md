@@ -19,7 +19,7 @@ You need to provide additional roles to the K8s service account with which the C
 
 ```bash
 cd <Cloned_Repo_Dir>
-kubectl apply -f ./molina_deployments/K8s_Role.yaml
+kubectl apply -f ./flink-healthcare-molina/files/K8s_Role.yaml
 kubectl get Roles
 ```
 
@@ -28,36 +28,19 @@ You need to replace certain placeholder values for the integrations to work
 
 Filename | Path | Placeholder | Purpose
 ---------|------|-------------|--------
-core-site.xml | <Cloned_Repo_Dir>/molina_deployments | {AZ STORAGE_ACCOUNT ACCESS KEY} | The Access Key for Azure Storage Accounts for ADLS Integration
-flink_cluster_session_mode.yaml | <Cloned_Repo_Dir>/molina_deployments | {AZ STORAGE_ACCOUNT ACCESS KEY} | The Access Key for Azure Storage Accounts for ADLS Integration
+core-site.xml | <Cloned_Repo_Dir>/flink-healthcare-molina/files | {AZ STORAGE_ACCOUNT ACCESS KEY} | The Access Key for Azure Storage Accounts for ADLS Integration
+values.yaml | <Cloned_Repo_Dir>/flink-healthcare-molina | {azStorageAccountSecret} | The Access Key for Azure Storage Accounts for ADLS Integration
 
-
-# Provision Config Map to hold Hadoop Configs
-
-This is required for ADLS intergration where the Checkpoints/Savepoints and Delta Tables are going to reside
-
-```bash
-cd <Cloned_Repo_Dir>
-kubectl create configmap core-site-config --from-file=./molina_deployments/core-site.xml
-```
-
-# Launch Flink Cluster in Session mode
+# Launch Flink Cluster
+You have a Helm chart that needs to be installedthat takes care of deploying the following resousrces
+    * Config Maps
+    * Flink Cluster Session mode deployment
+    * Ingress
 
 ```bash
 cd <Cloned_Repo_Dir>
-kubectl apply -f ./molina_deployments/flink_cluster_session_mode.yaml
-kubectl get pods
+helm install <release-name> ./flink-healthcare-molina
 ```
-
-# Provision Ingress to access Flink Dashboard
-
-```bash
-cd <Cloned_Repo_Dir>
-kubectl apply -f ./molina_deployments/flink_cluster_ingress.yaml
-kubectl get ingress
-```
-This will provision an Ingress K8s resource which will be exposed over a public IP which can be access from your browser.
-Validate the Flink dashboard by navigating to http://<Public_IP>/
 
 # Launch Flink SQL CLI in Embedded mode
 
