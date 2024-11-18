@@ -28,11 +28,11 @@ You need to replace certain placeholder values for the integrations to work
 
 Filename | Path | Placeholder | Purpose
 ---------|------|-------------|--------
-core-site.xml | <Cloned_Repo_Dir>/flink-healthcare-molina/files | {AZ STORAGE_ACCOUNT ACCESS KEY} | The Access Key for Azure Storage Accounts for ADLS Integration
-values.yaml | <Cloned_Repo_Dir>/flink-healthcare-molina | {azStorageAccountSecret} | The Access Key for Azure Storage Accounts for ADLS Integration
+core-site.xml | <Cloned_Repo_Dir>/flink-healthcare-molina/files, <Cloned_Repo_Dir>/delta-schema-evolution/files | {AZ STORAGE_ACCOUNT ACCESS KEY} | The Access Key for Azure Storage Accounts for ADLS Integration
+values.yaml | <Cloned_Repo_Dir>/flink-healthcare-molina, <Cloned_Repo_Dir>/delta-schema-evolution | {azStorageAccountSecret} | The Access Key for Azure Storage Accounts for ADLS Integration
 
 # Launch Flink Cluster
-You have a Helm chart that needs to be installedthat takes care of deploying the following resousrces
+You have a Helm chart that needs to be installed that takes care of deploying the following resousrces
 * Config Maps
 * Flink Cluster Session mode deployment
 * Ingress
@@ -57,3 +57,16 @@ cd /opt/flink/bin
 ```bash
 FLINK SQL > INSERT INTO raw_claim_diagnosis_delta_table SELECT claim_id, member_id, diagnosis_code, diagnosis_description, diagnosis_date, lab_results, event_time FROM input_claim_diagnosis;
 ```
+
+# Schema Evolution Usecase - Launch Flink Cluster in Application mode with SchemaEvolution JAR
+You have a Helm chart that needs to be installed that takes care of deploying the following resousrces
+* Config Maps
+* Flink Cluster in Application mode submitting the Job
+* Ingress
+
+```bash
+cd <Cloned_Repo_Dir>
+helm install <release-name> ./delta-schema-evolution
+```
+## Validation
+Once the above helm chart is deployed, the schema of the Gold table is expected to be added with a new Column. You can validate this by querying the table from Azure Databricks service.

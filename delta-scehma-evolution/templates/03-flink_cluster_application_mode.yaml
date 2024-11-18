@@ -1,0 +1,50 @@
+{{- if .Values.flink.enabled -}}
+apiVersion: flink.apache.org/v1beta1
+kind: FlinkDeployment
+metadata:
+  name: {{ include "flink-healthcare-molina.fullname" . }}
+spec:
+  image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+  flinkVersion: {{ .Values.flink.version }}
+  flinkConfiguration:
+    #ENABLE_BUILT_IN_PLUGINS: flink-azure-fs-hadoop-1.19.0.jar
+    fs.azure.account.key.molinahealthcareusecase.dfs.core.windows.net: {{ .Values.flink.azStorageAccountSecret }}
+    taskmanager.numberOfTaskSlots: "{{ .Values.flink.taskSlots }}"
+    classloader.resolve-order: "parent-first"
+    state.backend: {{ .Values.flink.stateBackend }}
+    kubernetes.decorator.hadoop-conf-mount.enabled: 'true'
+    kubernetes.hadoop.conf.config-map.name: {{ include "flink-healthcare-molina.fullname" . }}-cm
+    state.savepoints.dir: {{ .Values.flink.savepointDirectory }}
+    state.checkpoints.dir: {{ .Values.flink.checkpointDirectory }}
+  serviceAccount: {{ .Values.serviceAccount.name }}
+  jobManager:
+    resource:
+      memory: {{ .Values.flink.jobManager.memory }}
+      cpu: {{ .Values.flink.jobManager.cpu }}
+    podTemplate:
+      spec:
+        containers:
+        - name: flink-main-container
+          env:
+          #- name: ENABLE_BUILT_IN_PLUGINS
+          #  value: flink-azure-fs-hadoop-1.19.0.jar
+  taskManager:
+    resource:
+      memory: {{ .Values.flink.taskManager.memory }}
+      cpu: {{ .Values.flink.taskManager.cpu }}
+    podTemplate:
+      spec:
+        containers:
+        - name: flink-main-container
+          env:
+          #- name: ENABLE_BUILT_IN_PLUGINS
+          #  value: flink-azure-fs-hadoop-1.19.0.jar
+  {{- if not .Values.flink.sessionmode -}}
+  job:
+    jarURI: {{ .Values.flink.jarURI }}
+    entryClass: {{ .Values.flink.entryClass }}
+    parallelism: 1
+    upgradeMode: savepoint
+    savepointTriggerNonce: 003
+  {{- end }}  
+{{- end }}
