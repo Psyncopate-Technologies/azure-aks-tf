@@ -48,8 +48,8 @@ Launch the Flink SQL CLI shell - an interactive way of submitting the Jobs
 
 ```bash
 kubeclt exec -it <jobmanager pod> bash
-cd /opt/flink/bin
-./sql-client.sh -j ../usrlib/sql-runner.jar -i ../usrlib/sql-scripts/initialize-data-ingestion-to-adls.sql
+cd /opt/flink/usrlib
+./sql-client.sh -j sql-runner.jar -i sql-scripts/molina_demo_ddl.sql
 ```
 
 # Submit Flink Jobs
