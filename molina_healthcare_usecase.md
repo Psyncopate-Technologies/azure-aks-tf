@@ -42,8 +42,19 @@ cd <Cloned_Repo_Dir>
 helm install <release-name> ./flink-healthcare-molina
 ```
 
-# Launch Flink SQL CLI in Embedded mode
+# Flink SQL CLI in Embedded mode
 
+## Create Catalogs, Tables and Static Tables(reference data) if any
+To submit Flink SQL Jobs, you need to create Catalogs, Flink Tables and any static refrence data if your usecase demands them. For Molina, we need to create them upfront event before submitting Flink Jobs through interactive shell.
+
+```bash
+kubeclt exec -it <jobmanager pod> bash
+cd /opt/flink/usrlib
+./sql-client.sh -j sql-runner.jar -f sql-scripts/molina_demo_initialize.sql
+```
+Wait for the execution to complete. This creates the required catalogs, tables and reference data and uploads the same into ADLS Gen2 Storage account.
+
+## Launch Flink SQL CLI - Interactive shell 
 Launch the Flink SQL CLI shell - an interactive way of submitting the Jobs
 
 ```bash
@@ -51,6 +62,7 @@ kubeclt exec -it <jobmanager pod> bash
 cd /opt/flink/usrlib
 ./sql-client.sh -j sql-runner.jar -i sql-scripts/molina_demo_ddl.sql
 ```
+The initialization script passed here will just create the catalogs, tables and reference data with in the flink session so that you can submit the flink jobs interactively through Shell.
 
 # Submit Flink Jobs
 
@@ -68,5 +80,8 @@ You have a Helm chart that needs to be installed that takes care of deploying th
 cd <Cloned_Repo_Dir>
 helm install <release-name> ./delta-schema-evolution
 ```
+This jar takes care of reading the csv files from ADLS and converts it into Delta table and sinks the same into ADLS.
+So, donot forget to place the CSV file(source) in ADLS Gen2 storage account.
+
 ## Validation
 Once the above helm chart is deployed, the schema of the Gold table is expected to be added with a new Column. You can validate this by querying the table from Azure Databricks service.

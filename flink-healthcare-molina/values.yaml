@@ -14,7 +14,7 @@ image:
   #tag: "0.0.1"
   #tag: "0.0.2" #Demoable condition - With OSF Base Image
   #tag: "0.0.3-beta"  #Demoable condition - with CP-Flink base image
-  tag: "0.0.4"  #Testing condition - with CP-Flink base image - Multi stage build
+  tag: "0.0.7"  #Demoable condition - with CP-Flink base image - Multi stage build
 
 # This is for the secretes for pulling an image from a private repository more information can be found here: https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/
 imagePullSecrets: []
