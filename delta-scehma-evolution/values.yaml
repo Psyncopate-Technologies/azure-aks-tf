@@ -15,7 +15,9 @@ image:
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
   #tag: "0.0.1"
-  tag: "0.0.1"
+  #tag: "0.0.3" #Demoable condition - With OSF Base Image
+  #tag: 0.0.4-beta #Demoable condition - with CP-Flink base image
+  tag: 0.0.5 #Testing condition - with CP-Flink base image - Multi stage build
 
 # This is for the secretes for pulling an image from a private repository more information can be found here: https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/
 imagePullSecrets: []
@@ -137,7 +139,7 @@ flink:
   savepointDirectory: abfss://molina@molinahealthcareusecase.dfs.core.windows.net/savepoints
   checkpointDirectory: abfss://molina@molinahealthcareusecase.dfs.core.windows.net/checkpoints
   jarURI: local:///opt/flink/lib/delta-schema-evolution-1.0-SNAPSHOT.jar
-  entryClass: org.psyncopate.flink.DeltaSchemaEvolution
+  entryClass: org.psyncopate.flink.AdjudicatedSummarySchemaEvolution
   jobManager: 
     memory: "2048m"
     cpu: 1

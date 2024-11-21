@@ -25,36 +25,36 @@ app_gateway_subnet_cidr                     = "10.225.0.0/16"
 
 # default pool
 default_pool_name                           = "agentpool"
-default_pool_node_count                     = 1
+default_pool_node_count                     = 2
 default_pool_node_vm_size                   = "Standard_DS2_v2"
 default_pool_node_os_disk_size_gb           = 30
-default_pool_min_node_count                 = 1
-default_pool_max_node_count                 = 2
+default_pool_min_node_count                 = 2
+default_pool_max_node_count                 = 4
 
 # rtf pool
 rtf_pool_name                               = "rtfpool"
-rtf_pool_node_count                         = 1
+rtf_pool_node_count                         = 2
 rtf_pool_node_vm_size                       = "Standard_DS2_v2"
 rtf_pool_node_os_disk_size_gb               = 30
-rtf_pool_min_node_count                     = 1
-rtf_pool_max_node_count                     = 2
+rtf_pool_min_node_count                     = 2
+rtf_pool_max_node_count                     = 4
 
 # apigee runtime pool
 apigee_runtime_pool_name                    = "apgruntime"
-apigee_runtime_pool_node_count              = 1
+apigee_runtime_pool_node_count              = 2
 apigee_runtime_pool_node_vm_size            = "Standard_DS2_v2"
 apigee_runtime_pool_node_os_disk_size_gb    = 30
-apigee_runtime_pool_min_node_count          = 1
-apigee_runtime_pool_max_node_count          = 2
+apigee_runtime_pool_min_node_count          = 2
+apigee_runtime_pool_max_node_count          = 4
 
 
 # apigee datat pool
 apigee_data_pool_name                       = "flinkpocnp"
-apigee_data_pool_node_count                 = 1
+apigee_data_pool_node_count                 = 2
 apigee_data_pool_node_vm_size               = "Standard_DS2_v2"
 apigee_data_pool_node_os_disk_size_gb       = 30
-apigee_data_pool_min_node_count             = 1
-apigee_data_pool_max_node_count             = 2
+apigee_data_pool_min_node_count             = 2
+apigee_data_pool_max_node_count             = 4
 
 # Azure Container Registry (ACR)
 acr_subnet_address_prefixes                 = ["10.115.50.32/28"]
