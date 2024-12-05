@@ -50,7 +50,7 @@ To submit Flink SQL Jobs, you need to create Catalogs, Flink Tables and any stat
 ```bash
 kubeclt exec -it <jobmanager pod> bash
 cd /opt/flink/usrlib
-./sql-client.sh -j sql-runner.jar -f sql-scripts/molina_demo_initialize.sql
+sql-client.sh -j sql-runner.jar -f sql-scripts/molina_demo_initialize.sql
 ```
 Wait for the execution to complete. This creates the required catalogs, tables and reference data and uploads the same into ADLS Gen2 Storage account.
 
@@ -60,7 +60,7 @@ Launch the Flink SQL CLI shell - an interactive way of submitting the Jobs
 ```bash
 kubeclt exec -it <jobmanager pod> bash
 cd /opt/flink/usrlib
-./sql-client.sh -j sql-runner.jar -i sql-scripts/molina_demo_ddl.sql
+sql-client.sh -j sql-runner.jar -i sql-scripts/molina_demo_ddl.sql
 ```
 The initialization script passed here will just create the catalogs, tables and reference data with in the flink session so that you can submit the flink jobs interactively through Shell.
 

@@ -26,7 +26,7 @@ app_gateway_subnet_cidr                     = "10.225.0.0/16"
 # default pool
 default_pool_name                           = "agentpool"
 default_pool_node_count                     = 2
-default_pool_node_vm_size                   = "Standard_DS2_v2"
+default_pool_node_vm_size                   = "Standard_DS3_v2"
 default_pool_node_os_disk_size_gb           = 30
 default_pool_min_node_count                 = 2
 default_pool_max_node_count                 = 4
@@ -51,7 +51,7 @@ apigee_runtime_pool_max_node_count          = 4
 # apigee datat pool
 apigee_data_pool_name                       = "flinkpocnp"
 apigee_data_pool_node_count                 = 2
-apigee_data_pool_node_vm_size               = "Standard_DS2_v2"
+apigee_data_pool_node_vm_size               = "Standard_D4s_v3"
 apigee_data_pool_node_os_disk_size_gb       = 30
 apigee_data_pool_min_node_count             = 2
 apigee_data_pool_max_node_count             = 4

@@ -131,13 +131,13 @@ flink:
   sessionmode: true
   version: v1_19
   azStorageAccountSecret: {azStorageAccountSecret}
-  taskSlots: 8
+  taskSlots: 5
   stateBackend: rocksdb
   savepointDirectory: abfss://molina@molinahealthcareusecase.dfs.core.windows.net/savepoints
   checkpointDirectory: abfss://molina@molinahealthcareusecase.dfs.core.windows.net/checkpoints
   jobManager: 
-    memory: "2048m"
-    cpu: 1
+    memory: "4096m"
+    cpu: 2
   taskManager:
-    memory: "2048m"
-    cpu: 1
+    memory: "4096m"
+    cpu: 2
